@@ -1,5 +1,4 @@
 import os
-import secrets
 
 from nicegui import ui
 
@@ -14,21 +13,9 @@ import app.pages.settings
 
 create_tables()
 
-
-def get_storage_secret():
-    storage_secret = os.getenv("STORAGE_SECRET", "")
-    is_railway_runtime = bool(os.getenv("RAILWAY_PROJECT_ID") or os.getenv("RAILWAY_ENVIRONMENT_ID"))
-
-    if is_railway_runtime and not storage_secret:
-        raise RuntimeError("STORAGE_SECRET is missing on Railway")
-
-    return storage_secret or secrets.token_hex(32)
-
-
 ui.run(
     title="Studly",
-    storage_secret=get_storage_secret(),
+    storage_secret=os.getenv("STORAGE_SECRET", "studly-secret-key"),
     host="0.0.0.0",
     port=int(os.getenv("PORT", "8080")),
 )
-
