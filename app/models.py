@@ -13,10 +13,10 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True)
-    username = Column(String(60), nullable=False)
-    email = Column(String(120), unique=True, nullable=False)
-    password_hash = Column(String(255), nullable=False)
-    created_at = Column(String(30), default=now_text)
+    username = Column(String, nullable=False)
+    email = Column(String, unique=True, nullable=False)
+    password_hash = Column(String, nullable=False)
+    created_at = Column(String, default=now_text)
 
 
 class UserProfile(Base):
@@ -24,14 +24,14 @@ class UserProfile(Base):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False, unique=True)
-    full_name = Column(String(120), default="")
-    university = Column(String(120), default="")
-    faculty = Column(String(120), default="")
-    group_name = Column(String(80), default="")
-    study_year = Column(String(20), default="")
-    semester_name = Column(String(40), default="")
-    created_at = Column(String(30), default=now_text)
-    updated_at = Column(String(30), default=now_text)
+    full_name = Column(String, default="")
+    university = Column(String, default="")
+    faculty = Column(String, default="")
+    group_name = Column(String, default="")
+    study_year = Column(String, default="")
+    semester_name = Column(String, default="")
+    created_at = Column(String, default=now_text)
+    updated_at = Column(String, default=now_text)
 
 
 class Lesson(Base):
@@ -39,12 +39,12 @@ class Lesson(Base):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    subject = Column(String(100), nullable=False)
-    day_of_week = Column(String(20), nullable=False)
-    start_time = Column(String(10), nullable=False)
-    end_time = Column(String(10), nullable=False)
-    room = Column(String(100), default="")
-    teacher = Column(String(100), default="")
+    subject = Column(String, nullable=False)
+    day_of_week = Column(String, nullable=False)
+    start_time = Column(String, nullable=False)
+    end_time = Column(String, nullable=False)
+    room = Column(String, default="")
+    teacher = Column(String, default="")
 
 
 class Homework(Base):
@@ -52,13 +52,13 @@ class Homework(Base):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    subject = Column(String(100), nullable=False)
-    title = Column(String(120), nullable=False)
+    subject = Column(String, nullable=False)
+    title = Column(String, nullable=False)
     description = Column(Text, default="")
-    due_date = Column(String(20), nullable=False)
-    priority = Column(String(20), default="Середній")
-    status = Column(String(20), default="Не почато")
-    created_at = Column(String(30), default=now_text)
+    due_date = Column(String, nullable=False)
+    priority = Column(String, default="Середній")
+    status = Column(String, default="Не почато")
+    created_at = Column(String, default=now_text)
 
 
 class Deadline(Base):
@@ -66,12 +66,12 @@ class Deadline(Base):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    title = Column(String(120), nullable=False)
-    kind = Column(String(40), default="Інше")
-    due_date = Column(String(20), nullable=False)
+    title = Column(String, nullable=False)
+    kind = Column(String, default="Інше")
+    due_date = Column(String, nullable=False)
     note = Column(Text, default="")
     is_done = Column(Boolean, default=False)
-    created_at = Column(String(30), default=now_text)
+    created_at = Column(String, default=now_text)
 
 
 class Note(Base):
@@ -79,6 +79,6 @@ class Note(Base):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    title = Column(String(120), nullable=False)
+    title = Column(String, nullable=False)
     content = Column(Text, default="")
-    created_at = Column(String(30), default=now_text)
+    created_at = Column(String, default=now_text)

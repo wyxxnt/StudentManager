@@ -1,14 +1,14 @@
+from datetime import datetime
+
 from nicegui import ui
 
-from app.helpers import today_for_humans
-
 NAV_ITEMS = [
-    ("dashboard", "/dashboard", "Дашборд"),
-    ("schedule", "/schedule", "Розклад"),
-    ("homework", "/homework", "ДЗ"),
-    ("deadlines", "/deadlines", "Дедлайни"),
-    ("notes", "/notes", "Нотатки"),
-    ("settings", "/settings", "Налаштування"),
+    ("/dashboard", "Дашборд"),
+    ("/schedule", "Розклад"),
+    ("/homework", "ДЗ"),
+    ("/deadlines", "Дедлайни"),
+    ("/notes", "Нотатки"),
+    ("/settings", "Налаштування"),
 ]
 
 
@@ -240,7 +240,7 @@ def render_user_header(user, title, subtitle, settings_path=None):
                 ui.label(subtitle).classes("muted-text")
             with ui.column().classes("hero-side"):
                 ui.label(f"Привіт, {user.username}").classes("small-title")
-                ui.label(f"Сьогодні {today_for_humans()}").classes("muted-text")
+                ui.label(f"Сьогодні {datetime.now().strftime('%d.%m.%Y')}").classes("muted-text")
                 with ui.row().classes("header-actions"):
                     if settings_path:
                         action_button = ui.button(on_click=lambda: ui.navigate.to(settings_path), icon="settings")
@@ -252,7 +252,7 @@ def render_user_header(user, title, subtitle, settings_path=None):
                         menu_button.classes("main-button")
                         menu_button.style("width: 44px; height: 44px; padding: 0; border-radius: 14px;")
                         with ui.menu():
-                            for _, path, label in NAV_ITEMS:
+                            for path, label in NAV_ITEMS:
                                 ui.menu_item(label, on_click=lambda path=path: ui.navigate.to(path))
                             ui.menu_item("Вийти", on_click=lambda: ui.navigate.to("/logout"))
 

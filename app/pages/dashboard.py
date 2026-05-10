@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from nicegui import ui
 
 from app.database import get_db
@@ -7,7 +9,6 @@ from app.helpers import (
     get_profile_completion,
     get_status_color,
     require_user,
-    today_text,
 )
 from app.layout import render_stat_card, render_user_header, setup_theme
 from app.models import Deadline, Homework, Lesson, Note
@@ -20,7 +21,7 @@ def dashboard_page():
     if not user:
         return
 
-    today = today_text()
+    today = datetime.now().strftime("%Y-%m-%d")
     day_name = current_day_name()
 
     db = get_db()

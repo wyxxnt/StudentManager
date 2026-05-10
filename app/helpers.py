@@ -17,18 +17,6 @@ WEEK_DAYS = [
 ]
 
 
-def today_text():
-    return datetime.now().strftime("%Y-%m-%d")
-
-
-def today_for_humans():
-    return datetime.now().strftime("%d.%m.%Y")
-
-
-def now_text():
-    return datetime.now().strftime("%Y-%m-%d %H:%M")
-
-
 def current_day_name():
     return WEEK_DAYS[datetime.now().weekday()]
 
@@ -154,7 +142,7 @@ def update_profile(user_id, full_name, university, faculty, group_name, study_ye
     profile.group_name = group_name.strip()
     profile.study_year = study_year.strip()
     profile.semester_name = semester_name.strip()
-    profile.updated_at = now_text()
+    profile.updated_at = datetime.now().strftime("%Y-%m-%d %H:%M")
 
     db.commit()
     db.close()
