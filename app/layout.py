@@ -134,10 +134,6 @@ def setup_theme():
             padding: 14px;
         }
 
-        .q-field {
-            width: 100%;
-        }
-
         .wide-row {
             width: 100%;
             display: flex;
@@ -232,12 +228,11 @@ def render_auth_header(title, subtitle):
         ui.label(subtitle).classes("muted-text")
 
 
-def render_user_header(user, title, subtitle, settings_path=None):
+def render_user_header(user, settings_path=None):
     with ui.card().classes("hero-card w-full"):
         with ui.row().classes("hero-layout"):
-            with ui.column().classes("gap-1 w-full"):
-                ui.label(title).classes("big-title")
-                ui.label(subtitle).classes("muted-text")
+            with ui.column().classes("gap-1").style("flex: 1; min-width: 0;"):
+                ui.label("Studly").classes("big-title")
             with ui.column().classes("hero-side"):
                 ui.label(f"Привіт, {user.username}").classes("small-title")
                 ui.label(f"Сьогодні {datetime.now().strftime('%d.%m.%Y')}").classes("muted-text")
@@ -257,8 +252,7 @@ def render_user_header(user, title, subtitle, settings_path=None):
                             ui.menu_item("Вийти", on_click=lambda: ui.navigate.to("/logout"))
 
 
-def render_stat_card(title, value, note):
+def render_stat_card(title, value):
     with ui.card().classes("stat-card"):
         ui.label(title).style("color: #176b5b; font-size: 12px; font-weight: 800; text-transform: uppercase;")
         ui.label(value).style("font-size: 34px; font-weight: 800;")
-        ui.label(note).classes("muted-text")

@@ -5,8 +5,6 @@ from nicegui import ui
 from app.database import get_db
 from app.helpers import (
     current_day_name,
-    get_or_create_profile,
-    get_profile_completion,
     get_status_color,
     require_user,
 )
@@ -38,54 +36,22 @@ def dashboard_page():
     upcoming_deadlines = [d for d in active_deadlines if d.due_date >= today]
     today_lessons = [l for l in lessons if l.day_of_week == day_name]
 
-    profile = get_or_create_profile(user.id)
-    filled_count, total_count = get_profile_completion(profile)
-
     today_lessons = sorted(today_lessons, key=lambda l: l.start_time)
     upcoming_homeworks = sorted(upcoming_homeworks, key=lambda h: h.due_date)[:5]
     overdue_homeworks = sorted(overdue_homeworks, key=lambda h: h.due_date)[:5]
     upcoming_deadlines = sorted(upcoming_deadlines, key=lambda d: d.due_date)[:5]
     last_notes = sorted(notes, key=lambda n: n.created_at, reverse=True)[:3]
 
-    profile_parts = []
-    if profile.faculty:
-        profile_parts.append(profile.faculty)
-    if profile.group_name:
-        profile_parts.append(f"Група {profile.group_name}")
-    if profile.study_year:
-        profile_parts.append(f"{profile.study_year} курс")
-    if profile.semester_name:
-        profile_parts.append(profile.semester_name)
-
     with ui.column().classes("page-shell"):
-        render_user_header(
-            user,
-            "Твій навчальний простір",
-            "Розклад, завдання, дедлайни, нотатки та профіль в одному місці.",
-            settings_path="/settings",
-        )
+        render_user_header(user, settings_path="/settings")
 
         with ui.row().classes("stats-grid"):
-            render_stat_card("Пари в розкладі", str(len(lessons)), "Скільки всього записано занять")
-            render_stat_card("Активне ДЗ", str(len(open_homeworks)), "Що ще не завершено")
-            render_stat_card("Дедлайни", str(len(active_deadlines)), "Справи, які ще попереду")
-            render_stat_card("Профіль", f"{filled_count}/{total_count}", "Налаштування твого студентського профілю")
-            render_stat_card("Прострочене", str(len(overdue_homeworks)), "Завдання, які вже прострочені")
+            render_stat_card("Пари в розкладі", str(len(lessons)))
+            render_stat_card("Активне ДЗ", str(len(open_homeworks)))
+            render_stat_card("Дедлайни", str(len(active_deadlines)))
+            render_stat_card("Прострочене", str(len(overdue_homeworks)))
 
         with ui.row().classes("dashboard-top-grid"):
-            with ui.card().classes("content-card w-full").style("height: 100%;"):
-                ui.label("Твій профіль").classes("mid-title")
-                if filled_count == 0:
-                    ui.label("Профіль ще не заповнений. Додай основні дані про себе, щоб сайт був більш персональним і зручним.").classes("muted-text")
-                else:
-                    if profile.full_name:
-                        ui.label(profile.full_name).classes("small-title")
-                    if profile.university:
-                        ui.label(profile.university).classes("muted-text")
-                    if profile_parts:
-                        ui.label(" • ".join(profile_parts)).classes("muted-text")
-                    ui.label(f"Заповнено {filled_count} з {total_count} полів").classes("muted-text")
-
             with ui.card().classes("content-card w-full").style("height: 100%;"):
                 ui.label("Пари на сьогодні").classes("mid-title")
                 if not today_lessons:

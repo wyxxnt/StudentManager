@@ -108,11 +108,7 @@ def notes_page():
                     ui.label(item.content).classes("muted-text")
 
     with ui.column().classes("page-shell"):
-        render_user_header(
-            user,
-            "Нотатки",
-            "Місце для коротких ідей, нагадувань і всього, що не хочеться загубити.",
-        )
+        render_user_header(user)
 
         with ui.row().classes("wide-row"):
             with ui.card().classes("content-card grow-one"):

@@ -14,11 +14,7 @@ def settings_page():
     profile = get_or_create_profile(user.id)
 
     with ui.column().classes("page-shell"):
-        render_user_header(
-            user,
-            "Налаштування профілю",
-            "Оновлюй основні дані профілю та навчання.",
-        )
+        render_user_header(user)
 
         with ui.card().classes("content-card w-full"):
             ui.label("Основна інформація").classes("mid-title")

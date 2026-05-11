@@ -146,21 +146,3 @@ def update_profile(user_id, full_name, university, faculty, group_name, study_ye
 
     db.commit()
     db.close()
-
-
-def get_profile_completion(profile):
-    values = [
-        profile.full_name,
-        profile.university,
-        profile.faculty,
-        profile.group_name,
-        profile.study_year,
-        profile.semester_name,
-    ]
-
-    filled = 0
-    for v in values:
-        if v:
-            filled += 1
-
-    return filled, len(values)
