@@ -1,6 +1,6 @@
-from datetime import datetime
-
 from nicegui import ui
+
+from app.helpers import today_for_humans
 
 NAV_ITEMS = [
     ("/dashboard", "Дашборд"),
@@ -235,7 +235,7 @@ def render_user_header(user, settings_path=None):
                 ui.label("Studly").classes("big-title")
             with ui.column().classes("hero-side"):
                 ui.label(f"Привіт, {user.username}").classes("small-title")
-                ui.label(f"Сьогодні {datetime.now().strftime('%d.%m.%Y')}").classes("muted-text")
+                ui.label(f"Сьогодні {today_for_humans()}").classes("muted-text")
                 with ui.row().classes("header-actions"):
                     if settings_path:
                         action_button = ui.button(on_click=lambda: ui.navigate.to(settings_path), icon="settings")
