@@ -14,7 +14,7 @@ import app.pages.settings
 create_tables()
 
 ui.run(
-    title="Studly",
+    title="Student Manager",
     storage_secret=os.getenv("STORAGE_SECRET", "studly-secret-key"),
     host="0.0.0.0",
     port=int(os.getenv("PORT", "8080")),
