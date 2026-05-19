@@ -2,7 +2,7 @@
 
 Невеликий навчальний сайт для студента. 
 
-[Student Manager](https://studentmanager-project.up.railway.app)
+Сайт: [Student Manager](https://studentmanager-project.up.railway.app)
 
 У ньому є:
 
